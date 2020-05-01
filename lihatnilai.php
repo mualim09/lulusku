@@ -1,3 +1,9 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Data nilai</title>
+</head>
+<body>
 <?php
 session_start();
 if(empty($_SESSION['namauser']) and empty($_SESSION['kode']))
@@ -58,7 +64,7 @@ else{
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="http://adikiss.net/" target="_blank">Developed by Adikiss</a></li>            
+            <li><a href="http://adikiss.net/" target="_blank">Developed by SMA N 1 Pecangaan</a></li>            
           </ul>
         </div>
   </div>
@@ -66,24 +72,36 @@ else{
       <table width="800" align="center">
   <tr>
     <td>
-          <?php
-
-		  require "../config.php";
-
-		   $page=$_GET['page'];
-		   $filename="$page.php";
-		   if (!file_exists($filename))
-        {
-         include "home.php";
-        }
-            else
-        {@include "$page.php";}
-        ?>
-      </td>
+<h3>Data Nilai Siswa</h3>
+<?php
+include('../config.php');
+$noujian = $_GET['noujian'];
+$q = mysqli_query($GLOBALS["___mysqli_ston"], "SELECT * FROM tbl_siswa where noujian = '$noujian'");
+while($r = mysqli_fetch_array($q))
+{
+  echo 'Nama : '.$r['name'].' <br>';
+  echo 'No : '.$r['noujian'].' <br>';
+  echo 'Jurusan : '.$r['jurusan'].' <br>';  
+}
+?>
+<br>
+<table class="table table-striped table-hover" border="1" cellpadding="5" cellspacing="0">
+<tr class="info"><td>No.<td>nama mapel</td><td>R Rapot</td><td>Nilai US</td><td>nilai Sekolah</td></tr>
+<?php
+include('../config.php');
+$noujian = $_GET['noujian'];
+$q = mysqli_query($GLOBALS["___mysqli_ston"], "SELECT * FROM tbl_siswa INNER JOIN tbl_nilai ON tbl_siswa.noujian=tbl_nilai.noujian where tbl_nilai.noujian = '$noujian' ");
+$n = 1;
+while($r = mysqli_fetch_array($q))
+{
+	echo '<tr><td>'.$n.'</td><td>'.$r["nama_mapel"].'</td><td>'.$r["nilai_sekolah"].'</td><td>'.$r["nilai_un"].'</td><td>'.$r["nilai_akhir"].'</td></tr>';
+	$n++;
+}
+?>
+ </td>
   </tr>
 </table>
- 
-
+<a href="index.php?page=data-nilai" class="btn btn-primary">Kembali ke Daftar Nama</a>
 </body>
 </html>
 <?php
