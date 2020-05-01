@@ -1,0 +1,9 @@
+<?php
+error_reporting(E_ALL ^ E_DEPRECATED);
+$h = "localhost";
+$u = "ictsmanc_ictsmanca";
+$p = "ictsmanca2020";
+$d = "ictsmanc_smancaasiku";
+($GLOBALS["___mysqli_ston"] = mysqli_connect("localhost", "ictsmanc_ictsmanca", "ictsmanca2020"));
+mysqli_select_db($GLOBALS["___mysqli_ston"], "ictsmanc_smancaasiku");
+?>
